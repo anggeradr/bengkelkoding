@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Obat extends Model {
     use HasFactory;
 
-    protected $table = 'obat'; // Pastikan Laravel menggunakan nama tabel yang benar
+    protected $table = 'obat'; 
 
     protected $fillable = [
         'nama_obat',
