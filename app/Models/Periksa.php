@@ -17,7 +17,8 @@ class Periksa extends Model {
         'id_pasien',
         'tanggal_periksa',
         'catatan',
-        'biaya_periksa'
+        'biaya_periksa',
+        'status'
     ];
 
     /**

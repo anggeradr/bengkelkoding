@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\PeriksaController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('layouts.main');
@@ -48,4 +50,34 @@ Route::middleware(['auth', 'role:dokter'])->group(function () {
 
 Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+});
+
+Route::get('/periksa', [PeriksaController::class, 'index'])->name('periksa.index');
+Route::post('/periksa', [PeriksaController::class, 'store'])->name('periksa.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('periksa', PeriksaController::class);
+});
+
+Route::get('/periksa/create', [PeriksaController::class, 'create'])->name('periksa.create');
+Route::post('/periksa', [PeriksaController::class, 'store'])->name('periksa.store');
+
+Route::get('/dokter/daftar-periksa', [PeriksaController::class, 'daftarPeriksa'])->name('dokter.daftarPeriksa');
+
+Route::get('/dokter/memeriksa', [PeriksaController::class, 'daftarPeriksa'])->name('dokter.daftarPeriksa');
+
+Route::get('/memeriksa', [PeriksaController::class, 'daftarPeriksa'])->name('dokter.memeriksa');
+
+Route::get('/periksa/{id}', [PeriksaController::class, 'show'])->name('periksa.show');
+Route::get('/periksa/{id}/edit', [PeriksaController::class, 'edit'])->name('periksa.edit');
+
+Route::resource('obat', ObatController::class);
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+Route::get('/', function () {
+    return view('welcome');
 });
